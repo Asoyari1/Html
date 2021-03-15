@@ -1,0 +1,95 @@
+<!Doctype html> 
+<html>
+	<head>
+		<title>  Korttipeli </title>
+	<head>
+	<body>
+		<button id= "new" onclick = "Aloita()">Aloita</button>
+		</br>
+		</br>
+		<div id= "aloituskortti"></div>
+		<div id= "aloituskortti3"></div>
+		</br>
+		<div id= "aloituskortti2"></div>
+		<div id= "aloituskortti4"></div>
+		</br>
+		
+		<div id= "loppu"></div>
+		</br>
+		<button onclick="anna()" id= "anna">Anna Kortti</button>
+		<button onclick="lopeta()" id= "lopeta">lopeta</button>
+		</br>
+		</br>
+		<div id= "pelaaja-sum"></div>
+		</br>
+		<div id= "tietokone-sum"></div>
+		</br>
+		<script>
+			var kortit = [2,3,4,5,6,7,8,9,10,10,10,10,11,
+						 2,3,4,5,6,7,8,9,10,10,10,10,11,
+						 2,3,4,5,6,7,8,9,10,10,10,10,11,
+						 2,3,4,5,6,7,8,9,10,10,10,10,11];
+			var tietokone, pelaaja;
+			var a = 0;
+			
+			function randomit(kortit)
+			{
+				var rnd = Math.floor(kortit.length * Math.random());
+				return kortit[rnd];
+			}
+			function Aloita()
+			{
+				pelaaja =[randomit(kortit), randomit(kortit)];
+				tietokone = [randomit(kortit), randomit(kortit)];
+				document.getElementById("new").style.display = "none";
+				document.getElementById("aloituskortti").innerHTML = "pelajan kortit: "+ pelaaja;
+				document.getElementById("aloituskortti3").innerHTML = "kortit: "+ pisteet(pelaaja);
+				document.getElementById("aloituskortti2").innerHTML = "Tietokonen kortit: "+ tietokone;
+				document.getElementById("aloituskortti4").innerHTML = "kortit: "+ pisteet(tietokone);
+			}
+			
+			function pisteet(value)
+			{
+				var sum = 0;
+				for(var i =0; i <value.length; i++)
+				{
+					sum += value[i];
+				}
+				return sum;
+			}
+			
+			function anna() 
+			{
+			
+				pelaaja.push(randomit(kortit));
+				
+				document.getElementById("aloituskortti").innerHTML = "pelaajan kortit: "+ pelaaja;
+				document.getElementById("aloituskortti3").innerHTML = "kortit: "+ pisteet(pelaaja);
+				if(pisteet(pelaaja) > 21)
+				{
+					document.getElementById("loppu").innerHTML = "Hävisit!";
+					document.getElementById("anna").style.display = "none";
+					document.getElementById("lopeta").style.display = "none";
+				}
+			}
+			function lopeta()
+			{
+			
+				
+				
+				if(pisteet(pelaaja) > 21  || pisteet(pelaaja) < pisteet(tietokone) || pisteet(tietokone)=== 21)
+				{
+					document.getElementById("loppu").innerHTML = "Hävisit!";
+					document.getElementById("anna").style.display = "none";
+					document.getElementById("lopeta").style.display = "none";
+				}
+				else if(pisteet(pelaaja) > pisteet(tietokone) ||  pisteet(tietokone) > 21 || pisteet(pelaaja) === 21)
+				{
+					document.getElementById("loppu").innerHTML = "Voitit!";
+					document.getElementById("anna").style.display = "none";
+					document.getElementById("lopeta").style.display = "none";
+				}
+			}	
+		</script>
+	</body>
+</html>
